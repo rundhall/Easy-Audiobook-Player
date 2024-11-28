@@ -38,7 +38,7 @@ void buttonCallback(uint8_t pin, uint8_t event, uint8_t count, uint16_t length) 
       Serial.print(" New value : "); Serial.print(currentFile);
       Serial.println();
       myDFPlayer.pause();
-      myDFPlayer.play(currentFile);
+      myDFPlayer.playLargeFolder(1,currentFile);
       saveState();
   }
   else {
@@ -108,11 +108,11 @@ void loop() {
 
   if (myDFPlayer.available()) {
     uint8_t type = myDFPlayer.readType();
-    int value = myDFPlayer.read();
+    //int value = myDFPlayer.read();
     if (type == DFPlayerPlayFinished) {
-      Serial.print(F("Finished playing file: "));
-      Serial.println(value);
-      currentFile = value + 1; // Move to the next file
+      Serial.print(F("Finished playing file read: "));
+      Serial.println(currentFile);
+      currentFile = currentFile + 1; // Move to the next file
       saveState();
       myDFPlayer.playLargeFolder(1,currentFile);
     }
